@@ -1,0 +1,4 @@
+*.pyc
+dilbert.sqlite3
+dilbert.rss
+cartoons/*
