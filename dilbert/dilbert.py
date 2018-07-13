@@ -99,7 +99,7 @@ class Dilbert(object):
         self.UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) ' \
                 + 'Chrome/35.0.1916.4 7 Safari/537.36'
         self.baseurl = baseurl
-        self.feedname = Path("dilbert.rss")
+        self.feedname = Path("dilbert.atom")
         _debug("Found baseurl {}".format(self.baseurl))
 
     def __del__(self):
