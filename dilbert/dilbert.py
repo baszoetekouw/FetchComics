@@ -20,6 +20,7 @@ if sys.version_info < (3, 7):
 
 DEBUG = True
 
+
 # note: inclusive counting
 def _daterange(start_date: date, end_date: date) -> Generator[date, None, None]:
     for n in range(int((end_date - start_date).days) + 1):
@@ -219,7 +220,7 @@ class Dilbert(object):
         for comic in self.comics(10):
             _debug("Adding comic for {}".format(comic.pubdate))
             feed.add_item(
-                title       = comic.title,
+                title       = "{} — {}".format(comic.pubdate,comic.title),
                 author_name = "Scott Adams",
                 link        = "http://dilbert.com/strip/{}".format(comic.pubdate),
                 updateddate = comic.updated,
