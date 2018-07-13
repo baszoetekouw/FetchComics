@@ -209,7 +209,7 @@ class Dilbert(object):
         return
 
     def feed(self) -> feedgenerator.SyndicationFeed:
-        feed = feedgenerator.Rss201rev2Feed(
+        feed = feedgenerator.Atom1Feed(
             title="De dagelijke Dilbert",
             link="http://dilbert.com/",
             feed_url = "{}/{}".format(self.baseurl, self.feedname),
@@ -220,6 +220,7 @@ class Dilbert(object):
         for comic in self.comics(10):
             _debug("Adding comic for {}".format(comic.pubdate))
             feed.add_item(
+                unique_id   = comic.url,
                 title       = "{} — {}".format(comic.pubdate,comic.title),
                 author_name = "Scott Adams",
                 link        = "http://dilbert.com/strip/{}".format(comic.pubdate),
