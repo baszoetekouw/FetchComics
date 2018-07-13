@@ -18,6 +18,7 @@ if sys.version_info < (3, 7):
     print("This script requires Python version 3.7")
     sys.exit(1)
 
+DEBUG = True
 
 # note: inclusive counting
 def _daterange(start_date: date, end_date: date) -> Generator[date, None, None]:
@@ -25,8 +26,10 @@ def _daterange(start_date: date, end_date: date) -> Generator[date, None, None]:
         yield start_date + timedelta(days=n)
 
 
-def _debug(*args):
-    print(args)
+def _debug(*args) -> None:
+    if DEBUG:
+        print(args)
+    return
 
 
 class DilbertComic(object):
@@ -96,6 +99,7 @@ class Dilbert(object):
                 + 'Chrome/35.0.1916.4 7 Safari/537.36'
         self.baseurl = baseurl
         self.feedname = Path("dilbert.rss")
+        _debug("Found baseurl {}".format(self.baseurl))
 
     def __del__(self):
         self.db.close()
@@ -146,6 +150,7 @@ class Dilbert(object):
         return comics
 
     def find_comic_by_pubdate(self, pubdate: date) -> DilbertComic:
+        print("Fetching comic for {}".format(pubdate))
         _debug("Fetching comic for {}".format(pubdate))
         url = "http://dilbert.com/strip/{}".format(pubdate.isoformat())
         _debug("Fetching url `{}`".format(url))
@@ -219,7 +224,7 @@ class Dilbert(object):
                 link        = "http://dilbert.com/strip/{}".format(comic.pubdate),
                 updateddate = comic.updated,
                 pubdate     = datetime.combine(comic.pubdate, datetime.min.time()),
-                description = comic.tag(),
+                description = comic.tag(baseurl = self.baseurl),
             )
         return feed
 
@@ -231,7 +236,13 @@ class Dilbert(object):
 
 
 if __name__ == "__main__":
-    dilbert = Dilbert(basepath=".", baseurl="http://localhost")
-    print(dilbert.update())
+    if len(sys.argv) == 2:
+        baseurl = sys.argv[1]
+    else:
+        baseurl = "http://localhost"
+
+    dilbert = Dilbert(basepath=".", baseurl=baseurl)
+    dilbert.update()
+
     with open(dilbert.feedname, "w") as fd:
         dilbert.write_rss(fd)
