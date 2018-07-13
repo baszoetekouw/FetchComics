@@ -221,7 +221,7 @@ class Dilbert(object):
             _debug("Adding comic for {}".format(comic.pubdate))
             feed.add_item(
                 unique_id   = comic.url,
-                title       = "{} — {}".format(comic.pubdate,comic.title),
+                title       = "{} — {}".format(comic.pubdate, comic.title),
                 author_name = "Scott Adams",
                 link        = "http://dilbert.com/strip/{}".format(comic.pubdate),
                 updateddate = comic.updated,
