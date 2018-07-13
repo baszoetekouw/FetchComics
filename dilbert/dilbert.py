@@ -86,7 +86,7 @@ class DilbertComic(object):
         if self.height:
             h = 'height="{}"'.format(self.height)
 
-        url = '{}/{}'.format(baseurl, self.filename)
+        url = '{}/comics/{}'.format(baseurl, self.filename)
         tag = '<img src="{}" alt="comic for {}" {} {}/>'.format(url, self.pubdate, w, h)
         return tag
 
@@ -170,7 +170,7 @@ class Dilbert(object):
         return comic
 
     def download_comic(self, filename: str, url: str) -> None:
-        filename_full = 'cartoons/{}'.format(filename)
+        filename_full = 'comics/{}'.format(filename)
         _debug("Downloading '{}' to '{}'".format(url, filename_full))
         res = self.fetch_url(url)
         _debug("Status: {}".format(res.status))
@@ -208,7 +208,7 @@ class Dilbert(object):
         return
 
     def feed(self) -> feedgenerator.SyndicationFeed:
-        feed = feedgenerator.Atom1Feed(
+        feed = feedgenerator.Rss201rev2Feed(
             title="De dagelijke Dilbert",
             link="http://dilbert.com/",
             feed_url = "{}/{}".format(self.baseurl, self.feedname),
