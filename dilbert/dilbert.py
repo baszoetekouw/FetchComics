@@ -199,7 +199,7 @@ class Dilbert(object):
         start = self.latest_date_in_db()
         # default: 10 days ago
         if not start:
-            start = date.today() - timedelta(days=10)
+            start = date.today() - timedelta(days=30)
 
         start = start + timedelta(days=1)
 

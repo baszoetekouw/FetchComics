@@ -1,5 +1,5 @@
 .mypy_cache/
 *.pyc
 dilbert/dilbert.sqlite3
-dilbert/dilbert.rss
-dilbert/cartoons/*
+dilbert/dilbert.atom
+dilbert/comics/*
