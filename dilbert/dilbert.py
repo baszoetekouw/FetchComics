@@ -226,7 +226,8 @@ class Dilbert(object):
                 link        = "http://dilbert.com/strip/{}".format(comic.pubdate),
                 updateddate = comic.updated,
                 pubdate     = datetime.combine(comic.pubdate, datetime.min.time()),
-                description = comic.tag(baseurl = self.baseurl),
+                description = "<p>{}</p><p>Dilbert Comic for {}</p>".format(
+                    comic.tag(baseurl = self.baseurl), comic.pubdate),
             )
         return feed
 
