@@ -126,6 +126,8 @@ class Dilbert(object):
         return con
 
     def fetch_url(self, url: str) -> HTTPResponse:
+        if url.startswith('//'):
+            url = 'https:' + url
         req = request.Request(url, data=None, headers={'User-Agent': self.UA})
         res = request.urlopen(req)
         if isinstance(res, response.addinfourl):
